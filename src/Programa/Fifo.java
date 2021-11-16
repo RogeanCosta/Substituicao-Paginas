@@ -4,21 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Fifo {
-
-	// private int Q1;
-	// private int Q2;
-	// private int[] acertos;
-	
-	
-	// public int[] getAcertos() {
-	//	return acertos;
-	// }
- 
-	// public Fifo(int Q1, int Q2) {
-	//	this.Q1 = Q1;
-	//	this.Q2 = Q2;
-	//	acertos = new int[(Q2 - Q1) + 1];
-	// }
 	
 	public int[] calcularAcertos(String[] conteudo, int Q1, int Q2) {
 		
@@ -57,4 +42,5 @@ public class Fifo {
 		
 		return acertos;
 	}
+	
 }
