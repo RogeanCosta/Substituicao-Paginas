@@ -79,7 +79,7 @@ public class Frames {
 		textField_2.setBounds(95, 116, 96, 29);
 		frame.getContentPane().add(textField_2);
 		
-		JButton btnNewButton = new JButton("Iniciar AplicaÃ§Ã£o");
+		JButton btnNewButton = new JButton("Iniciar Aplicação");
 		btnNewButton.setBackground(new Color(0, 204, 153));
 		btnNewButton.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		btnNewButton.setBounds(30, 181, 182, 29);

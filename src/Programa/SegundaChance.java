@@ -16,12 +16,50 @@ public class SegundaChance {
 			LinkedList<Integer> ref = new LinkedList<Integer>();
 			
 			int acerto = 0;
+			int contador = 0;
 			
 			// for para referenciar páginas
 			for(int j = 0; j < tamanho; j++) {
 				
 				// Pegando valor em específico e convertendo-o para inteiro
 				int valor = Integer.parseInt(conteudo[j]);
+				
+				// Verifica se a página já está contida na memória: se estiver, ACERTO!
+				if(fifo.contains(valor)) {
+					//System.out.println("Pagina "+ valor + " já estava carregada");
+					int index = fifo.indexOf(valor);
+
+					ref.set(index, 1);
+					
+					acerto++;
+					
+				} else {
+					// Se os frames estiverem todos ocupados, removeremos o primeiro com ref 0 
+					// e adicionaremos o atual na última posição
+					if(fifo.size() == i) {
+						
+						while(ref.get(0) == 1) {
+							
+							ref.poll();
+							ref.offer(0);
+							
+							fifo.offer(fifo.get(0));
+							fifo.poll();		
+						
+						}
+						
+						fifo.poll();
+						fifo.offer(valor);
+						
+						ref.poll();
+						ref.offer(1);
+						
+					} else {
+						fifo.offer(valor); // se não está cheio, apenas adiciona no fim
+						ref.offer(1);
+
+					}
+				}
 				
 				// Verifica se já atingiu a quantidade de refs
 				if((j + 1) % R == 0) {
@@ -31,30 +69,13 @@ public class SegundaChance {
 						
 						ref.set(index, 0);
 					}
+					
+					contador++;
 				}
 				
-				// Verifica se a página já está contida na memória: se estiver, ACERTO!
-				if(fifo.contains(valor)) {
-					int index = fifo.indexOf(valor);
-
-					ref.set(index, 1);
-					
-					acerto++;
-					
-				} else {
-					// Se os frames estiverem todos ocupados, removeremos o primeiro com ref 0 e adicionaremos o atual na última posição
-					if(fifo.size() == i) {
-						
-						fifo.poll();
-						fifo.offer(valor);
-						
-					} else {
-						fifo.offer(valor); // se não está cheio, apenas adiciona no fim
-						ref.offer(1);
-						
-					}
-				}
 			}
+			
+			//System.out.println("Com " + i + " frames: " + contador + " zeradas");
 			
 			acertos[i - Q1] = acerto;
 		}
