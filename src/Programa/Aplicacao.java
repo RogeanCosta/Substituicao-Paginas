@@ -21,8 +21,10 @@ public class Aplicacao {
 		Fifo fila = new Fifo();
 		
 		//Criando Segunda Chance
-		
 		SegundaChance sc = new SegundaChance();
+		
+		//Criando MRU
+		MenosRecente mr = new MenosRecente();
 		
 		// Criando vetor para armazenar números
 		int tamanho = conteudo.split("-").length;
@@ -43,7 +45,7 @@ public class Aplicacao {
 		// int[] acertos = fila.calcularAcertos(array, Q1, Q2);
 		
 		//Simulando Segunda Chance
-		int[] acertos = sc.calcularAcertos(array, Q1, Q2, R);
+		int[] acertos = mr.calcularAcertos(array, Q1, Q2);
 
 		// Apenas vendo os valores, apagar esse trecho dps
 		//********************************************************
