@@ -16,17 +16,16 @@ public class SegundaChance {
 			LinkedList<Integer> ref = new LinkedList<Integer>();
 			
 			int acerto = 0;
-			int contador = 0;
 			
-			// for para referenciar páginas
+			// for para referenciar pï¿½ginas
 			for(int j = 0; j < tamanho; j++) {
 				
-				// Pegando valor em específico e convertendo-o para inteiro
+				// Pegando valor em especï¿½fico e convertendo-o para inteiro
 				int valor = Integer.parseInt(conteudo[j]);
 				
-				// Verifica se a página já está contida na memória: se estiver, ACERTO!
+				// Verifica se a pï¿½gina jï¿½ estï¿½ contida na memï¿½ria: se estiver, ACERTO!
 				if(sc.contains(valor)) {
-					//System.out.println("Pagina "+ valor + " já estava carregada");
+					//System.out.println("Pagina "+ valor + " jï¿½ estava carregada");
 					int index = sc.indexOf(valor);
 
 					ref.set(index, 1);
@@ -35,7 +34,7 @@ public class SegundaChance {
 					
 				} else {
 					// Se os frames estiverem todos ocupados, removeremos o primeiro com ref 0 
-					// e adicionaremos o atual na última posição
+					// e adicionaremos o atual na ï¿½ltima posiï¿½ï¿½o
 					if(sc.size() == i) {
 						
 						while(ref.get(0) == 1) {
@@ -55,13 +54,13 @@ public class SegundaChance {
 						ref.offer(1);
 						
 					} else {
-						sc.offer(valor); // se não está cheio, apenas adiciona no fim
+						sc.offer(valor); // se nï¿½o estï¿½ cheio, apenas adiciona no fim
 						ref.offer(1);
 
 					}
 				}
 				
-				// Verifica se já atingiu a quantidade de refs
+				// Verifica se jï¿½ atingiu a quantidade de refs
 				if((j + 1) % R == 0) {
 					
 					while(ref.contains(1)) {
@@ -69,13 +68,9 @@ public class SegundaChance {
 						
 						ref.set(index, 0);
 					}
-					
-					contador++;
 				}
 				
 			}
-			
-			//System.out.println("Com " + i + " frames: " + contador + " zeradas");
 			
 			acertos[i - Q1] = acerto;
 		}
