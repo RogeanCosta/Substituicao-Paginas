@@ -12,6 +12,7 @@ public class Nur {
 		int[] acertos = new int[(Q2 - Q1) + 1];
 		
 		for(int i = Q1; i <= Q2; i++) {
+			
 			LinkedList<Integer> nur = new LinkedList<Integer>();
 			LinkedList<Integer> ref = new LinkedList<Integer>();
 			LinkedList<Integer> mod = new LinkedList<Integer>();
@@ -19,27 +20,24 @@ public class Nur {
 			
 			int acerto = 0;
 			
-			// for para referenciar páginas
+			// for para referenciar paginas
 			for(int j = 0; j < tamanho; j++) {
 				
-				// Pegando valor em espec�fico e convertendo-o para inteiro
+				// Pegando valor em especifico e convertendo-o para inteiro
 				int valor = Integer.parseInt(conteudo[j]);
 				
-				// Verifica se a p�gina j� est� contida na mem�ria: se estiver, ACERTO!
+				// Verifica se a pagina esta contida na memoria: se estiver, ACERTO!
 				if(nur.contains(valor)) {
 					int index = nur.indexOf(valor);
 
 					ref.set(index, 1);
 					
-//					System.out.println(tipoAcesso[j]);
-//					System.out.println(tipoAcesso[index]);
-//					System.out.println(tipoAcesso[index].equals("W"));
-//					System.out.println(mod.get(index));
-					
 					if(tipoAcesso[j].equals("W")) {
 						mod.set(index, 1);
 						classe.set(index, 3);
-					} 
+					} else {
+						classe.set(index, 2);
+					}
 					
 					acerto++;
 					
@@ -78,9 +76,9 @@ public class Nur {
 							classe.offer(2);
 						}
 						
-					} else {
+					} else { // se nao estiver cheio, apenas adiciona no fim
 			
-						nur.offer(valor); // se n�o est� cheio, apenas adiciona no fim
+						nur.offer(valor); 
 						ref.offer(1);
 						
 						if(tipoAcesso[j].equals("W")) {
@@ -101,13 +99,12 @@ public class Nur {
 						
 						ref.set(index, 0);
 						
-//						System.out.println(mod.indexOf(index));
-						
 						if(mod.get(index) == 0) {
 							classe.set(index, 0);
 						} else {
 							classe.set(index, 1);
 						}
+
 					}
 				}
 				
