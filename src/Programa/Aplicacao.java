@@ -12,42 +12,13 @@ public class Aplicacao {
 		int Q2 = 90;
 		int R = 30;
 		
-		// Criando vetor para armazenar n�meros
-		int tamanho = conteudo.split("-").length;
-		String[] array = new String[tamanho];
-		array = conteudo.replaceAll("[WR || [ ]]", "").split("-");
-		
-		//Criando vetor para armazenar o tipo de acesso
-		String[] tipoAcesso = new String[tamanho];
-		tipoAcesso = conteudo.replaceAll("[0-9 || [ ]]", "").split("-");
-		
-		
-		//apagar esse trecho dps
-		//********************************************************
-//		for (int j=0; j<tamanho; j++) {
-//			System.out.printf("%s ", array[j]);
-//		}
-//		System.out.println();
-//		for (int j=0; j<tamanho; j++) {
-//			System.out.printf("%s ", tipoAcesso[j]);
-//		}
-		// ******************************************************
-		
-		// Criando fifo e simulando
-		Fifo fila = new Fifo();
-		// int[] acertos = fila.calcularAcertos(array, Q1, Q2);
+		// ============ TESTANDO NOVA CLASSE ==================
+		var alg = new AlgoritmosDeSubstituicao(conteudo, Q1, Q2, R);
 				
-		//Criando Segunda Chance e simulando
-		SegundaChance sc = new SegundaChance();
-//		int[] acertos = sc.calcularAcertos(array, Q1, Q2, R);
-				
-		//Criando MRU e simulando
-		MenosRecente mr = new MenosRecente();
-		//int[] acertos = mr.calcularAcertos(array, Q1, Q2);
-		
-		//Criando NUR e simulando
-		Nur nur = new Nur();
-		int[] acertos = nur.calcularAcertos(array, tipoAcesso, Q1, Q2, R);
+		int[] acertos = alg.simulaFIFO();
+//		int[] acertos = alg.simulaSC();
+//		int[] acertos = alg.simulaMUR();
+//		int[] acertos = alg.simulaNUR();
 		
 
 		// Apenas vendo os valores, apagar esse trecho dps
