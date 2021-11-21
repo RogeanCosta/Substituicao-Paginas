@@ -1,23 +1,20 @@
 package Janelas;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.FileChooserUI;
 
 import Programa.Aplicacao;
 
@@ -109,19 +106,17 @@ public class Frames {
 				// Caso o usuário pressione no botão de cancelar: retorna a janela anterior
 				int result = selecionaArquivo.showOpenDialog(selecionaArquivo);
 				
-				if(result == JFileChooser.CANCEL_OPTION)
-					System.exit(1);
+				if(result == JFileChooser.APPROVE_OPTION) {
+					File arquivo = selecionaArquivo.getSelectedFile();
 				
-				File arquivo = selecionaArquivo.getSelectedFile();
+					try {
+						Aplicacao.conteudo = Files.readString(Paths.get(arquivo.toURI()));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				
-				try {
-					Aplicacao.conteudo = Files.readString(Paths.get(arquivo.toURI()));
-				} catch (IOException e1) {
-					e1.printStackTrace();
+					Caminho.setText(arquivo.getName());
 				}
-				
-				Caminho.setHorizontalAlignment(JTextField.CENTER);
-				Caminho.setText(arquivo.getName());
 			}
 		});
 		btnAbrirArquivo.setFont(new Font("Arial Black", Font.PLAIN, 13));
@@ -133,6 +128,7 @@ public class Frames {
 		Caminho.setEditable(false);
 		Caminho.setColumns(10);
 		Caminho.setBounds(10, 229, 229, 29);
+		Caminho.setHorizontalAlignment(JTextField.CENTER);
 		frame.getContentPane().add(Caminho);
 	}
 }
