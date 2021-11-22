@@ -146,7 +146,7 @@ public class AlgoritmosDeSubstituicao {
 		return acertos;
 	}
 
-	public int[] simulaMUR() {
+	public int[] simulaMRU() {
 		
 		int[] acertos = new int[(Q2 - Q1) + 1];
 		

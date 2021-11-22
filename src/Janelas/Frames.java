@@ -38,10 +38,12 @@ public class Frames {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Algoritmos de Substitui\u00E7\u00E3o");
 		frame.setBounds(100, 100, 268, 374);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Q1:");
 		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 15));
