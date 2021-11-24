@@ -2,6 +2,9 @@ package Programa;
 
 import java.util.concurrent.Semaphore;
 
+import org.jfree.ui.RefineryUtilities;
+
+import java.awt.*;
 import Janelas.Frames;
 import Janelas.Tabela;
 
@@ -82,8 +85,12 @@ public class Aplicacao {
 		}
 		// ******************************************************
 		
-		Tabela tabela = new Tabela();
-		tabela.frame.setVisible(true);
+		Tabela tabela = new Tabela("AcertosxFrames");
 		
+		// DONT WORK
+		// tabela.pack();
+        // RefineryUtilities.centerFrameOnScreen(tabela);
+
+        tabela.frame.setVisible(true);
 	}
 }

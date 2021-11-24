@@ -1,7 +1,6 @@
 package Janelas;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,11 +11,22 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RectangleInsets;
+
 import Programa.Aplicacao;
 
-import java.awt.SystemColor;
+import javax.swing.JPanel;
 
-public class Tabela {
+public class Tabela extends ApplicationFrame{
 
 	public JFrame frame;
 	public JTable table;
@@ -41,7 +51,8 @@ public class Tabela {
 	/**
 	 * Create the application.
 	 */
-	public Tabela() {
+	public Tabela(String title) {
+		super(title);
 		initialize();
 	}
 
@@ -67,7 +78,6 @@ public class Tabela {
 		scrollPane.setBounds(105, 399, 757, 264);
 		frame.getContentPane().add(scrollPane);
 		
-		
 		table = new JTable(Aplicacao.dados, nomeColunas);
 		scrollPane.setViewportView(table);
 		table.getTableHeader().setReorderingAllowed(false);
@@ -90,7 +100,75 @@ public class Tabela {
 		titulo.setEditable(false);
 		titulo.setText("QUANTIDADE DE ACERTOS");
 		
+		// Criação do panel para inserção do gráfico
+		JPanel panel = createDemoPanel();
+		panel.setBounds(105, 42, 757, 291);
+		
+		frame.getContentPane().add(panel);
 		frame.setResizable(false);
-
+		
+	}
+	
+	
+	public static JPanel createDemoPanel() {
+		
+		// Definição dos eixos
+		NumberAxis eixoX = new NumberAxis("Frames");
+		// eixoX.setAutoRangeIncludesZero(false);
+		eixoX.setAutoRange(false);
+		
+		NumberAxis eixoY = new NumberAxis("Acertos");
+		// eixoY.setAutoRangeIncludesZero(false);
+		eixoY.setAutoRange(false);
+		
+		// Definição da plotagem das linhas
+		XYLineAndShapeRenderer renderizador = new XYLineAndShapeRenderer();
+		
+		// Configuração das cores das linhas
+		renderizador.setSeriesPaint(0, new Color(168, 21, 193)); // Roxo
+		renderizador.setSeriesPaint(1, Color.blue);
+		renderizador.setSeriesPaint(2, new Color(255, 0, 127)); // Rosa Choque
+		renderizador.setSeriesPaint(3, new Color(0, 100, 100)); // Verde Escuro
+		
+		// Plotagem do gráfico
+		XYPlot plot = new XYPlot(createSampleData(), eixoX, eixoY, renderizador);
+		
+		plot.setBackgroundPaint(Color.white);
+		plot.setDomainGridlinePaint(Color.lightGray);
+		plot.setRangeGridlinePaint(Color.black);
+		plot.setAxisOffset(new RectangleInsets(40, 40, 40, 40));
+		
+		// Criar e retornar painel chart
+		JFreeChart chart = new JFreeChart("Algoritmos de sub. de páginas", 
+				JFreeChart.DEFAULT_TITLE_FONT, plot, true);
+		
+		ChartPanel chartPanel = new ChartPanel(chart);
+		
+		return chartPanel;
+	}
+	
+	private static XYDataset createSampleData() {
+		
+		XYSeries series = new XYSeries("FIFO");
+		XYSeries series1 = new XYSeries("SC");
+		XYSeries series2 = new XYSeries("NUR");
+		XYSeries series3 = new XYSeries("MRU");
+		
+		int dif = (Aplicacao.Q2 - Aplicacao.Q1) + 1;
+		for(int i = 0; i < dif; i++) {
+			series.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][1].toString()));
+			series1.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][2].toString()));
+			series2.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][3].toString()));
+			series3.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][4].toString()));
+		}
+		
+		System.out.println("QUEBROU? " + Double.valueOf(Aplicacao.dados[0][0].toString()));
+		
+		XYSeriesCollection resultado = new XYSeriesCollection(series);
+		resultado.addSeries(series1);
+		resultado.addSeries(series2);
+		resultado.addSeries(series3);
+		
+		return resultado;
 	}
 }
