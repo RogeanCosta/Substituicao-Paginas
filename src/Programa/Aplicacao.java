@@ -73,7 +73,7 @@ public class Aplicacao {
 		// Apenas vendo os valores, apagar esse trecho dps
 		//********************************************************
 		dif = (Q2 - Q1) + 1;
-		for(int i = 0; i < dif; i = i + 20) {
+		for(int i = 0; i < dif; i++) {
 			int frame = Q1 + i;
 
 			System.out.println("FIFO frame: " + frame + " acertos: " + acertosFIFO[i]);
@@ -89,7 +89,7 @@ public class Aplicacao {
 		
 		// DONT WORK
 		// tabela.pack();
-        // RefineryUtilities.centerFrameOnScreen(tabela);
+        RefineryUtilities.centerFrameOnScreen(tabela);
 
         tabela.frame.setVisible(true);
 	}
