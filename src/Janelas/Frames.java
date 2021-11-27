@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,23 +27,24 @@ public class Frames {
 	private JTextField Q2;
 	private JTextField R;
 	private JTextField Caminho;
+	private JButton btnAbrirArquivo;
 
-	/**
-	 * Create the application.
-	 */
+	
 	public Frames() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
+		
+		// Criação e configuração do frame que conterá os dados a serem recebidos
 		frame = new JFrame();
+		frame.setTitle("Algoritmos de Substituição");
 		frame.setBounds(100, 100, 268, 374);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Q1:");
 		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 15));
@@ -59,25 +62,65 @@ public class Frames {
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		Q1 = new JTextField();
+		Q1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					Q2.requestFocus();
+				}
+			}
+		});
+		
 		Q1.setBounds(95, 23, 96, 29);
 		frame.getContentPane().add(Q1);
 		Q1.setColumns(10);
 		
 		Q2 = new JTextField();
+		
+		Q2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					R.requestFocus();
+				}
+			}
+		});
+		
 		Q2.setColumns(10);
 		Q2.setBounds(95, 69, 96, 29);
 		frame.getContentPane().add(Q2);
 		
 		R = new JTextField();
+		
+		R.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnAbrirArquivo.requestFocus();
+				}
+			}
+		});
+		
 		R.setColumns(10);
 		R.setBounds(95, 116, 96, 29);
 		frame.getContentPane().add(R);
 		
 		JButton btnNewButton = new JButton("Iniciar Aplicação");
 		
+		btnNewButton.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnNewButton.doClick();
+				}
+			}
+		});
+		
 		btnNewButton.setBackground(new Color(0, 204, 153));
 		btnNewButton.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		btnNewButton.setBounds(36, 295, 182, 29);
+		
+		// Recebimento dos valores dos atributos de Aplicacao e "Acorda" a thread Main
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				Aplicacao.Q1 = Integer.parseInt(Q1.getText());
@@ -90,7 +133,7 @@ public class Frames {
 
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnAbrirArquivo = new JButton("Abrir Arquivo");
+		btnAbrirArquivo = new JButton("Abrir Arquivo");
 		btnAbrirArquivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -116,9 +159,21 @@ public class Frames {
 					}
 				
 					Caminho.setText(arquivo.getName());
+					btnNewButton.requestFocus();
+				}
+				
+			}
+		});
+		
+		btnAbrirArquivo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnAbrirArquivo.doClick();
 				}
 			}
 		});
+		
 		btnAbrirArquivo.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		btnAbrirArquivo.setBackground(new Color(0, 204, 153));
 		btnAbrirArquivo.setBounds(50, 189, 152, 29);
