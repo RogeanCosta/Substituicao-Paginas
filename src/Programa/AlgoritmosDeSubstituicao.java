@@ -81,15 +81,14 @@ public class AlgoritmosDeSubstituicao {
 			
 			int acerto = 0;
 			
-			// for para referenciar pï¿½ginas
+			// for para referenciar páginas
 			for(int j = 0; j < tamanho; j++) {
 				
-				// Pegando valor em especï¿½fico e convertendo-o para inteiro
+				// Pegando valor em específico e convertendo-o para inteiro
 				int valor = Integer.parseInt(conteudo[j]);
 				
-				// Verifica se a pï¿½gina jï¿½ estï¿½ contida na memï¿½ria: se estiver, ACERTO!
+				// Verifica se a página já está contida na memória: se estiver, ACERTO!
 				if(fila.contains(valor)) {
-					//System.out.println("Pagina "+ valor + " jï¿½ estava carregada");
 					int index = fila.indexOf(valor);
 
 					ref.set(index, 1);
@@ -98,7 +97,7 @@ public class AlgoritmosDeSubstituicao {
 					
 				} else {
 					// Se os frames estiverem todos ocupados, removeremos o primeiro com ref 0 
-					// e adicionaremos o atual na ï¿½ltima posiï¿½ï¿½o
+					// e adicionaremos o atual na última posição
 					if(fila.size() == i) {
 						
 						while(ref.get(0) == 1) {
@@ -118,13 +117,13 @@ public class AlgoritmosDeSubstituicao {
 						ref.offer(1);
 						
 					} else {
-						fila.offer(valor); // se nï¿½o estï¿½ cheio, apenas adiciona no fim
+						fila.offer(valor); // se não estiver cheio, apenas adiciona no fim
 						ref.offer(1);
 
 					}
 				}
 				
-				// Verifica se jï¿½ atingiu a quantidade de refs
+				// Verifica se já atingiu a quantidade de refs
 				if((j + 1) % R == 0) {
 					
 					while(ref.contains(1)) {
@@ -258,7 +257,7 @@ public class AlgoritmosDeSubstituicao {
 					}
 				}
 				
-				// Verifica se jï¿½ atingiu a quantidade de refs
+				// Verifica se já atingiu a quantidade de refs
 				if((j + 1) % R == 0) {
 					
 					while(ref.contains(1)) {
@@ -290,10 +289,11 @@ public class AlgoritmosDeSubstituicao {
 		return acertos;
 	}
 
+	// tipoAcesso[] e conteudo[] estão alinhados, então conteudo[1] possui tipo de acesso tipoAcesso[1]
 	// Este método auxiliar do método simulaNUR, engloba código comum 
-	private void setaClasse (int j) {
+	private void setaClasse (int posicao) {
 	
-		if(tipoAcesso[j].equals("W")) {
+		if(tipoAcesso[posicao].equals("W")) {
 			mod.offer(1);
 			classe.offer(3);
 		

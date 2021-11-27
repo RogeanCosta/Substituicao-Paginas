@@ -12,7 +12,7 @@ public class Aplicacao {
 	public static int Q1;
 	public static int Q2;
 	public static int R;
-	public static Object dados[][];
+	public static Integer dados[][];
 	
 	
 	public static void main(String[] args) {
@@ -43,7 +43,7 @@ public class Aplicacao {
 		
 		// Criação e inserção de dados em array de Object para tabela
 		int dif = (Q2 - Q1) + 1;
-		dados = new Object[dif][5];
+		dados = new Integer[dif][5];
 		
 		for (int j = 0; j < dif; j++) {
 			dados[j][0] = (Q1 + j);

@@ -2,7 +2,6 @@ package Janelas;
 
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.text.DecimalFormat;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -107,12 +106,11 @@ public class Grafico {
 		int incremental = (dif > 4)? (dif/5) : 1;
 		
 		for(int i = 0; i < dif; i = i + incremental) {
-			series.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][1].toString()));
-			series1.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][2].toString()));
-			series2.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][3].toString()));
-			series3.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][4].toString()));
+			series.add(Aplicacao.dados[i][0], Aplicacao.dados[i][1]);
+			series1.add(Aplicacao.dados[i][0], Aplicacao.dados[i][2]);
+			series2.add(Aplicacao.dados[i][0], Aplicacao.dados[i][3]);
+			series3.add(Aplicacao.dados[i][0], Aplicacao.dados[i][4]);
 		}
-		
 		
 		// União das informações em uma XYSeriesCollection
 		XYSeriesCollection resultado = new XYSeriesCollection(series);

@@ -46,12 +46,16 @@ public class Tabela extends ApplicationFrame{
 		
 		// Scrollpane sendo inserido na tabela para visualização total dos dados
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(85, 42, 757, 427);
+		scrollPane.setBounds(85, 42, 801, 447);
 		frame.getContentPane().add(scrollPane);
 		
 		// Criação da tabela de fato
 		table = new JTable(Aplicacao.dados, nomeColunas);
 		scrollPane.setViewportView(table);
+		
+		// Não permite edição de qualquer tipo nas colunas da tabela
+		table.setEnabled(false);
+		table.getTableHeader().setEnabled(false);
 		table.getTableHeader().setReorderingAllowed(false);
 		
 		//Centralizando todas as celulas da tabela
@@ -66,7 +70,7 @@ public class Tabela extends ApplicationFrame{
 		titulo = new JTextField();
 		titulo.setFont(new Font("Arial Black", Font.PLAIN, 12));
 		titulo.setBackground(Color.WHITE);
-		titulo.setBounds(235, 23, 607, 20);
+		titulo.setBounds(244, 23, 641, 20);
 		frame.getContentPane().add(titulo);
 		titulo.setColumns(10);
 		titulo.setHorizontalAlignment(JTextField.CENTER);
@@ -85,7 +89,7 @@ public class Tabela extends ApplicationFrame{
 		mostraGraph.setBackground(new Color(0, 204, 153));
 		mostraGraph.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		mostraGraph.setForeground(Color.DARK_GRAY);
-		mostraGraph.setBounds(392, 514, 152, 29);
+		mostraGraph.setBounds(407, 512, 152, 29);
 		
 		frame.getContentPane().add(mostraGraph);
 		frame.setResizable(false);
