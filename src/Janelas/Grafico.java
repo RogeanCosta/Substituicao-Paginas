@@ -2,6 +2,7 @@ package Janelas;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.text.DecimalFormat;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,54 +23,47 @@ public class Grafico {
 
 	public JFrame frame;
 
-
+	
 	public Grafico() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-//		frame.setBounds(100, 100, 723, 756);//
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
+		// Criação e Configuração da janela do gráfico
+		frame = new JFrame();
+		
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		//frame.setLocationRelativeTo(null);
+		
+		// Cálculo para melhor uso de tela
 		int largura = Toolkit.getDefaultToolkit().getScreenSize().width - 50;
 		int altura = Toolkit.getDefaultToolkit().getScreenSize().height - 50;
 		
-		//frame.setBounds(100, 100, largura, altura);
-		// frame.setLocationRelativeTo(null);
+		// Definição do tamanho do frame
+		frame.setSize(largura, altura);
 
-//		JPanel panel = new JPanel();
+		// Criação e configuração do painel que irá conter o gráfico 
 		JPanel panel = createDemoPanel();
-		panel.setBounds(25, 0, largura, altura);
-		// panel.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		panel.setBounds(25, 0, largura - 50, altura - 50);
 		frame.getContentPane().add(panel);
 
 	}
 
 	
-public static JPanel createDemoPanel() {
+	public static JPanel createDemoPanel() {
 		
-		// Definição dos eixos
+		// Definição dos eixos e suas configurações
 		NumberAxis eixoX = new NumberAxis("Frames");
 		eixoX.setAutoRangeIncludesZero(false);
-		// -> eixoX.setRange(new Range(Aplicacao.Q1 - 1, Aplicacao.Q2 + 1));
 		eixoX.setTickUnit(new NumberTickUnit(1));
-//		eixoX.setAutoRangeMinimumSize(Aplicacao.Q1);
 		
 		NumberAxis eixoY = new NumberAxis("Acertos");
 		eixoY.setAutoRangeIncludesZero(false);
-		eixoY.setTickUnit(new NumberTickUnit(50));
-		// -> eixoY.setRange(new Range(400, 900));
-//		eixoY.setAutoRange(true);
-		
-		
+
 		// Definição da plotagem das linhas
 		XYLineAndShapeRenderer renderizador = new XYLineAndShapeRenderer();
 		
@@ -82,17 +76,16 @@ public static JPanel createDemoPanel() {
 		// Plotagem do gráfico
 		XYPlot plot = new XYPlot(createSampleData(), eixoX, eixoY, renderizador);
 		
-		// plot.setDomainAxis(50, eixoX);
-		// plot.setDomainAxis(100, eixoY);
-		((NumberAxis)plot.getRangeAxis()).setAutoRangeIncludesZero(false); // add		
+		// Autorange para o plot
+		((NumberAxis)plot.getRangeAxis()).setAutoRangeIncludesZero(false);
 
+		// Coloração da plotagem
 		plot.setBackgroundPaint(Color.white);
 		plot.setDomainGridlinePaint(Color.lightGray);
 		plot.setRangeGridlinePaint(Color.black);
-		//plot.setAxisOffset(new RectangleInsets(40, 40, 40, 40));
 		
 		// Criar e retornar painel chart
-		JFreeChart chart = new JFreeChart("Algoritmos de sub. de páginas", 
+		JFreeChart chart = new JFreeChart("Algoritmos de substituição de páginas", 
 				JFreeChart.DEFAULT_TITLE_FONT, plot, true);
 		
 		ChartPanel chartPanel = new ChartPanel(chart);
@@ -100,6 +93,8 @@ public static JPanel createDemoPanel() {
 		return chartPanel;
 	}
 	
+
+	// Método que retornará as informações a serem impressas no gráfico
 	private static XYDataset createSampleData() {
 		
 		XYSeries series = new XYSeries("FIFO");
@@ -107,16 +102,19 @@ public static JPanel createDemoPanel() {
 		XYSeries series2 = new XYSeries("NUR");
 		XYSeries series3 = new XYSeries("MRU");
 		
+		// Informações necessárias para pegar apenas 5 pontos a serem plotados no gráfico
 		int dif = (Aplicacao.Q2 - Aplicacao.Q1) + 1;
-		for(int i = 0; i < dif; i = i + 10) {
+		int incremental = (dif > 4)? (dif/5) : 1;
+		
+		for(int i = 0; i < dif; i = i + incremental) {
 			series.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][1].toString()));
 			series1.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][2].toString()));
 			series2.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][3].toString()));
 			series3.add(Double.valueOf(Aplicacao.dados[i][0].toString()), Double.valueOf(Aplicacao.dados[i][4].toString()));
 		}
 		
-		System.out.println("QUEBROU? " + Double.valueOf(Aplicacao.dados[0][0].toString()));
 		
+		// União das informações em uma XYSeriesCollection
 		XYSeriesCollection resultado = new XYSeriesCollection(series);
 		resultado.addSeries(series1);
 		resultado.addSeries(series2);

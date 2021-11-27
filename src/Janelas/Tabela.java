@@ -2,100 +2,54 @@ package Janelas;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.NumberTickUnit;
-import org.jfree.chart.axis.SubCategoryAxis;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYBarRenderer;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-
-// Aqui foi copiado
-import org.jfree.chart.event.AxisChangeEvent;
-import org.jfree.chart.plot.Plot;
-import org.jfree.chart.plot.PlotRenderingInfo;
-import org.jfree.chart.plot.ValueAxisPlot;
-import org.jfree.data.Range;
-import org.jfree.data.RangeType;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.TextAnchor;
-import org.jfree.util.ObjectUtilities;
 
 import Programa.Aplicacao;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class Tabela extends ApplicationFrame{
 
 	public JFrame frame;
 	public JTable table;
 	private JTextField titulo;
 	
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Tabela window = new Tabela();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-	/**
-	 * Create the application.
-	 */
 	public Tabela(String title) {
 		super(title);
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
+		
+		// Criação e Configuração do frame que conterá os dados da tabela
 		frame = new JFrame();
-		frame.setTitle("Algoritmos de Substitui\u00E7\u00E3o");
+		frame.setTitle("Algoritmos de Substituição");
 		frame.setBounds(100, 100, 980, 619);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		
+		// Array de String com os títulos das colunas
 		String[] nomeColunas = {"Quantidade de Frames", "FIFO", "SEGUNDA CHANCE", "NUR", "MRU"};
-		Object [][] dados = {
-				{50, 50, 480, 488, 454},
-				{70, 234, 485, 123, 234},
-				{90, 323, 323, 343, 232}
-			};
 		
+		// Scrollpane sendo inserido na tabela para visualização total dos dados
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(85, 42, 757, 427);
 		frame.getContentPane().add(scrollPane);
 		
+		// Criação da tabela de fato
 		table = new JTable(Aplicacao.dados, nomeColunas);
 		scrollPane.setViewportView(table);
 		table.getTableHeader().setReorderingAllowed(false);
@@ -108,6 +62,7 @@ public class Tabela extends ApplicationFrame{
 			table.getColumnModel().getColumn(columnIndex).setCellRenderer(centerRenderer);
 	    }
 		
+		// Campo com texto "Quantidade de acertos" acima das colunas da tabela
 		titulo = new JTextField();
 		titulo.setFont(new Font("Arial Black", Font.PLAIN, 12));
 		titulo.setBackground(Color.WHITE);
@@ -118,6 +73,7 @@ public class Tabela extends ApplicationFrame{
 		titulo.setEditable(false);
 		titulo.setText("QUANTIDADE DE ACERTOS");
 		
+		// Botão para mostrar o gráfico em um novo frame, este permanece aberto
 		JButton mostraGraph = new JButton("Mostrar Gráfico");
 		mostraGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -126,20 +82,12 @@ public class Tabela extends ApplicationFrame{
 				window.frame.setVisible(true);
 			}
 		});
-		mostraGraph.setBackground(Color.GREEN);
+		mostraGraph.setBackground(new Color(0, 204, 153));
 		mostraGraph.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		mostraGraph.setForeground(Color.DARK_GRAY);
-		mostraGraph.setBounds(392, 514, 169, 23);
+		mostraGraph.setBounds(392, 514, 152, 29);
+		
 		frame.getContentPane().add(mostraGraph);
-		
-		// Criação do panel para inserção do gráfico
-//		JPanel panel = new JPanel();
-//		JPanel panel = createDemoPanel();
-//		panel.setBounds(29, 27, 910, 392);
-//		panel.setAutoscrolls(true);
-		//panel.setPreferredSize(new DimensionUIResource(Aplicacao.Q1, Aplicacao.Q2));
-		
-//		frame.getContentPane().add(panel);
 		frame.setResizable(false);
 		
 	}

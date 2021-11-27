@@ -214,7 +214,7 @@ public class AlgoritmosDeSubstituicao {
 					if(tipoAcesso[j].equals("W")) {
 						mod.set(index, 1);
 						classe.set(index, 3);
-					} else {
+					} else if(tipoAcesso[j].equals("R") && classe.get(index) != 3){
 						classe.set(index, 2);
 					}
 					
